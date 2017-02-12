@@ -1,2 +1,2 @@
-# gomin
+# Gomin
 URL minifier in Go
