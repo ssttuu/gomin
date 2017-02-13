@@ -1,14 +1,14 @@
 package minify
 
 import (
-	"testing"
-	"net/http/httptest"
 	"github.com/stretchr/testify/assert"
+	"net/http/httptest"
+	"testing"
 )
 
 func TestHello(t *testing.T) {
 	req := httptest.NewRequest("GET", "/foo", nil)
-    	w := httptest.NewRecorder()
+	w := httptest.NewRecorder()
 
 	RootHandler(w, req)
 
