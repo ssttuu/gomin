@@ -1,7 +1,7 @@
 package handler
 
 import (
-	"gopkg.in/redis.v5"
+	"github.com/stupschwartz/gomin/gomin/env"
 	"log"
 	"net/http"
 )
@@ -24,15 +24,9 @@ func (se StatusError) Status() int {
 	return se.Code
 }
 
-type Env struct {
-	DB *redis.Client
-	//Port string
-	//Host string
-}
-
 type Handler struct {
-	*Env
-	H func(e *Env, w http.ResponseWriter, r *http.Request) error
+	*env.Env
+	H func(e *env.Env, w http.ResponseWriter, r *http.Request) error
 }
 
 func (h Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {

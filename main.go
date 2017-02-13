@@ -3,22 +3,24 @@ package main
 import (
 	"github.com/gorilla/mux"
 	"github.com/stupschwartz/gomin/gomin"
-	"github.com/stupschwartz/gomin/gomin/handler"
+	"github.com/stupschwartz/gomin/gomin/env"
 	"github.com/stupschwartz/gomin/gomin/minify"
 	"log"
 	"net/http"
+	"github.com/stupschwartz/gomin/gomin/redirect"
 )
 
 func main() {
-	r := mux.NewRouter()
+	router := mux.NewRouter()
 
-	env := &handler.Env{
+	environ := &env.Env{
 		DB: gomin.NewRedisClient(),
 	}
 
-	apiRouter := r.PathPrefix("/api/v0").Subrouter()
+	redirect.Register(router, environ)
 
-	minify.Register(apiRouter, env)
+	apiRouter := router.PathPrefix("/api/v0").Subrouter()
+	minify.Register(apiRouter, environ)
 
-	log.Fatal(http.ListenAndServe(":8080", r))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }

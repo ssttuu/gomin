@@ -1,0 +1,13 @@
+version: '2'
+services:
+  gomin:
+    image: stupschwartz/gomin
+    build: ./
+    volumes:
+      - ./:/go/src/github.com/stupschwartz/gomin/
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
+  redis:
+    image: redis
